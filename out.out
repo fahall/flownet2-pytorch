@@ -1,0 +1,280 @@
+Overall Progress:   0%|                                                   | 0/10000 [00:00<?, ?it/s]Parsing Arguments
+  [0.001s] [0mbatch_size: 8[0m
+  [0.001s] [35mcrop_size: [384, 512][0m
+  [0.001s] [0mfp16: False[0m
+  [0.001s] [0mfp16_scale: 1024.0[0m
+  [0.001s] [0mgradient_clip: None[0m
+  [0.001s] [0minference: False[0m
+  [0.001s] [0minference_batch_size: 1[0m
+  [0.001s] [0minference_dataset: MpiSintelClean[0m
+  [0.001s] [0minference_dataset_replicates: 1[0m
+  [0.001s] [0minference_dataset_root: ./MPI-Sintel/flow/training[0m
+  [0.001s] [0minference_n_batches: -1[0m
+  [0.001s] [0minference_size: [-1, -1][0m
+  [0.001s] [0mlog_frequency: 1[0m
+  [0.001s] [35mloss: MultiScale[0m
+  [0.001s] [0mloss_l_weight: 0.32[0m
+  [0.001s] [0mloss_norm: L1[0m
+  [0.001s] [0mloss_numScales: 5[0m
+  [0.001s] [0mloss_startScale: 4[0m
+  [0.001s] [0mmodel: FlowNet2[0m
+  [0.001s] [0mmodel_batchNorm: False[0m
+  [0.001s] [0mmodel_div_flow: 20.0[0m
+  [0.001s] [0mname: run[0m
+  [0.001s] [0mno_cuda: False[0m
+  [0.001s] [35mnumber_gpus: 3[0m
+  [0.001s] [0mnumber_workers: 4[0m
+  [0.001s] [0moptimizer: Adam[0m
+  [0.001s] [0moptimizer_betas: (0.9, 0.999)[0m
+  [0.001s] [0moptimizer_eps: 1e-08[0m
+  [0.001s] [35moptimizer_lr: 0.0001[0m
+  [0.001s] [0moptimizer_weight_decay: 0[0m
+  [0.001s] [0mrender_validation: False[0m
+  [0.001s] [35mresume: /data/checkpoints[0m
+  [0.001s] [0mrgb_max: 255.0[0m
+  [0.001s] [35msave: /data/checkpoints[0m
+  [0.001s] [0msave_flow: False[0m
+  [0.001s] [0mschedule_lr_fraction: 10[0m
+  [0.001s] [0mschedule_lr_frequency: 0[0m
+  [0.001s] [0mseed: 1[0m
+  [0.001s] [0mskip_training: False[0m
+  [0.001s] [0mskip_validation: False[0m
+  [0.001s] [0mstart_epoch: 1[0m
+  [0.001s] [0mtotal_epochs: 10000[0m
+  [0.001s] [0mtrain_n_batches: -1[0m
+  [0.001s] [35mtraining_dataset: FlyingChairs[0m
+  [0.001s] [0mtraining_dataset_replicates: 1[0m
+  [0.001s] [35mtraining_dataset_root: /data/FlyingChairs/data[0m
+  [0.001s] [0mvalidation_dataset: MpiSintelClean[0m
+  [0.001s] [0mvalidation_dataset_replicates: 1[0m
+  [0.001s] [35mvalidation_dataset_root: /data/MPI-Sintel-complete/training[0m
+  [0.001s] [0mvalidation_frequency: 5[0m
+  [0.001s] [0mvalidation_n_batches: -1[0m
+  [0.060s] Operation finished
+
+Source Code
+  Current Git Hash: 873e6de4bb07f9075a5b577c838fc05fe16fc5a2
+
+Initializing Datasets
+  [0.171s] Training Dataset: FlyingChairs
+  [0.176s] Training Input: [3L, 2L, 384L, 512L]
+  [0.180s] Training Targets: [2L, 384L, 512L]
+  [0.209s] Validation Dataset: MpiSintelClean
+  [0.243s] Validation Input: [3L, 2L, 384L, 512L]
+  [0.276s] Validation Targets: [2L, 384L, 512L]
+  [0.276s] Operation finished
+
+Building FlowNet2 model
+  [2.876s] Effective Batch Size: 8
+  [2.877s] Number of parameters: 162518834
+  [2.877s] Initializing CUDA
+  [4.371s] Parallelizing
+  [4.371s] Random initialization
+  [4.371s] Initializing save directory: /data/checkpoints
+  [4.373s] Operation finished
+
+Initializing Adam Optimizer
+  [0.001s] lr = 0.0001 (<type 'float'>)
+  [0.001s] weight_decay = 0 (<type 'int'>)
+  [0.001s] betas = (0.9, 0.999) (<type 'tuple'>)
+  [0.001s] eps = 1e-08 (<type 'float'>)
+  [0.001s] Operation finished
+
+
+Validating Epoch 0:   0%|                                                 | 0/131.0 [00:00<?, ?it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 3.386, load: 5.626:   0%|    | 0/131.0 [00:05<?, ?it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 3.386, load: 5.626:   1%| | 1/131.0 [00:05<11:33,  5.34s/it][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.919, load: 4.759:   1%| | 1/131.0 [00:05<12:06,  5.59s/it][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.919, load: 4.759:   2%| | 2/131.0 [00:05<06:00,  2.80s/it][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 3.112, load: 4.922:   2%| | 2/131.0 [00:05<06:16,  2.92s/it][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 3.112, load: 4.922:   2%| | 3/131.0 [00:05<04:08,  1.94s/it][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.192, load: 3.469:   2%| | 3/131.0 [00:06<04:19,  2.03s/it][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.192, load: 3.469:   3%| | 4/131.0 [00:06<03:12,  1.52s/it][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 1.985, load: 3.216:   3%| | 4/131.0 [00:06<03:20,  1.58s/it][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 1.985, load: 3.216:   4%| | 5/131.0 [00:06<02:39,  1.26s/it][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.777, load: 4.379:   4%| | 5/131.0 [00:06<02:45,  1.31s/it][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.777, load: 4.379:   5%| | 6/131.0 [00:06<02:16,  1.09s/it][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 1.874, load: 2.986:   5%| | 6/131.0 [00:06<02:21,  1.13s/it][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 1.874, load: 2.986:   5%| | 7/131.0 [00:06<02:00,  1.03it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.321, load: 3.736:   5%| | 7/131.0 [00:07<02:04,  1.00s/it][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.321, load: 3.736:   6%| | 8/131.0 [00:07<01:48,  1.14it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 3.943, load: 6.067:   6%| | 8/131.0 [00:07<01:51,  1.10it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 3.943, load: 6.067:   7%| | 9/131.0 [00:07<01:38,  1.24it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 5.996, load: 9.169:   7%| | 9/131.0 [00:07<01:41,  1.20it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 5.996, load: 9.169:   8%| | 10/131.0 [00:07<01:30,  1.33it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 6.907, load: 10.784:   8%| | 10/131.0 [00:07<01:33,  1.29it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 6.907, load: 10.784:   8%| | 11/131.0 [00:07<01:24,  1.42it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 5.939, load: 8.821:   8%| | 11/131.0 [00:07<01:27,  1.38it/s] [A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 5.939, load: 8.821:   9%| | 12/131.0 [00:07<01:19,  1.50it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 33.176, load: 59.400:   9%| | 12/131.0 [00:08<01:21,  1.46it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 33.176, load: 59.400:  10%| | 13/131.0 [00:08<01:14,  1.58it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 41.801, load: 62.701:  10%| | 13/131.0 [00:08<01:16,  1.54it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 41.801, load: 62.701:  11%|1| 14/131.0 [00:08<01:10,  1.65it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 28.641, load: 45.624:  11%|1| 14/131.0 [00:08<01:12,  1.61it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 28.641, load: 45.624:  11%|1| 15/131.0 [00:08<01:07,  1.72it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 41.126, load: 62.072:  11%|1| 15/131.0 [00:08<01:09,  1.68it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 41.126, load: 62.072:  12%|1| 16/131.0 [00:08<01:04,  1.79it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 21.004, load: 32.977:  12%|1| 16/131.0 [00:09<01:05,  1.74it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 21.004, load: 32.977:  13%|1| 17/131.0 [00:09<01:01,  1.85it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 15.230, load: 24.749:  13%|1| 17/131.0 [00:09<01:03,  1.81it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 15.230, load: 24.749:  14%|1| 18/131.0 [00:09<00:59,  1.91it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 10.656, load: 16.832:  14%|1| 18/131.0 [00:09<01:00,  1.87it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 10.656, load: 16.832:  15%|1| 19/131.0 [00:09<00:56,  1.97it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 4.273, load: 6.649:  15%|1| 19/131.0 [00:09<00:58,  1.92it/s]  [A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 4.273, load: 6.649:  15%|1| 20/131.0 [00:09<00:54,  2.02it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 6.077, load: 9.341:  15%|1| 20/131.0 [00:10<00:56,  1.98it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 6.077, load: 9.341:  16%|1| 21/131.0 [00:10<00:53,  2.07it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 7.552, load: 11.963:  16%|1| 21/131.0 [00:10<00:54,  2.03it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 7.552, load: 11.963:  17%|1| 22/131.0 [00:10<00:51,  2.12it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 17.716, load: 27.539:  17%|1| 22/131.0 [00:10<00:52,  2.08it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 17.716, load: 27.539:  18%|1| 23/131.0 [00:10<00:49,  2.17it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 24.608, load: 41.419:  18%|1| 23/131.0 [00:10<00:50,  2.12it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 24.608, load: 41.419:  18%|1| 24/131.0 [00:10<00:48,  2.22it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 33.042, load: 55.723:  18%|1| 24/131.0 [00:11<00:49,  2.17it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 33.042, load: 55.723:  19%|1| 25/131.0 [00:11<00:46,  2.26it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 16.873, load: 25.941:  19%|1| 25/131.0 [00:11<00:47,  2.21it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 16.873, load: 25.941:  20%|1| 26/131.0 [00:11<00:45,  2.30it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 37.202, load: 57.138:  20%|1| 26/131.0 [00:11<00:46,  2.25it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 37.202, load: 57.138:  21%|2| 27/131.0 [00:11<00:44,  2.34it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 8.071, load: 13.640:  21%|2| 27/131.0 [00:11<00:45,  2.29it/s] [A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 8.071, load: 13.640:  21%|2| 28/131.0 [00:11<00:43,  2.38it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 4.350, load: 6.813:  21%|2| 28/131.0 [00:12<00:44,  2.33it/s] [A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 4.350, load: 6.813:  22%|2| 29/131.0 [00:12<00:42,  2.42it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 1.639, load: 2.601:  22%|2| 29/131.0 [00:12<00:43,  2.37it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 1.639, load: 2.601:  23%|2| 30/131.0 [00:12<00:41,  2.45it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.035, load: 3.164:  23%|2| 30/131.0 [00:12<00:42,  2.40it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.035, load: 3.164:  24%|2| 31/131.0 [00:12<00:40,  2.48it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 4.949, load: 7.455:  24%|2| 31/131.0 [00:12<00:41,  2.44it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 4.949, load: 7.455:  24%|2| 32/131.0 [00:12<00:39,  2.52it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 8.043, load: 11.786:  24%|2| 32/131.0 [00:12<00:40,  2.47it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 8.043, load: 11.786:  25%|2| 33/131.0 [00:12<00:38,  2.55it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 1.674, load: 2.688:  25%|2| 33/131.0 [00:13<00:39,  2.50it/s] [A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 1.674, load: 2.688:  26%|2| 34/131.0 [00:13<00:37,  2.58it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 1.958, load: 3.177:  26%|2| 34/131.0 [00:13<00:38,  2.53it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 1.958, load: 3.177:  27%|2| 35/131.0 [00:13<00:36,  2.61it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.194, load: 3.569:  27%|2| 35/131.0 [00:13<00:37,  2.56it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.194, load: 3.569:  27%|2| 36/131.0 [00:13<00:36,  2.64it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.311, load: 3.759:  27%|2| 36/131.0 [00:13<00:36,  2.59it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.311, load: 3.759:  28%|2| 37/131.0 [00:13<00:35,  2.66it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.453, load: 4.021:  28%|2| 37/131.0 [00:14<00:35,  2.62it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.453, load: 4.021:  29%|2| 38/131.0 [00:14<00:34,  2.69it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.644, load: 4.312:  29%|2| 38/131.0 [00:14<00:35,  2.65it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.644, load: 4.312:  30%|2| 39/131.0 [00:14<00:33,  2.72it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.143, load: 3.423:  30%|2| 39/131.0 [00:14<00:34,  2.67it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.143, load: 3.423:  31%|3| 40/131.0 [00:14<00:33,  2.74it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 1.805, load: 2.842:  31%|3| 40/131.0 [00:14<00:33,  2.70it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 1.805, load: 2.842:  31%|3| 41/131.0 [00:14<00:32,  2.76it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 1.907, load: 2.974:  31%|3| 41/131.0 [00:15<00:33,  2.72it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 1.907, load: 2.974:  32%|3| 42/131.0 [00:15<00:31,  2.79it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.058, load: 3.187:  32%|3| 42/131.0 [00:15<00:32,  2.74it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.058, load: 3.187:  33%|3| 43/131.0 [00:15<00:31,  2.81it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.307, load: 3.609:  33%|3| 43/131.0 [00:15<00:31,  2.77it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.307, load: 3.609:  34%|3| 44/131.0 [00:15<00:30,  2.83it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 4.016, load: 6.124:  34%|3| 44/131.0 [00:15<00:31,  2.79it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 4.016, load: 6.124:  34%|3| 45/131.0 [00:15<00:30,  2.85it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 4.688, load: 7.238:  34%|3| 45/131.0 [00:16<00:30,  2.81it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 4.688, load: 7.238:  35%|3| 46/131.0 [00:16<00:29,  2.87it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 3.975, load: 6.187:  35%|3| 46/131.0 [00:16<00:30,  2.83it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 3.975, load: 6.187:  36%|3| 47/131.0 [00:16<00:29,  2.89it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 5.718, load: 9.551:  36%|3| 47/131.0 [00:16<00:29,  2.85it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 5.718, load: 9.551:  37%|3| 48/131.0 [00:16<00:28,  2.91it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 3.082, load: 4.794:  37%|3| 48/131.0 [00:16<00:28,  2.87it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 3.082, load: 4.794:  37%|3| 49/131.0 [00:16<00:27,  2.93it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.161, load: 3.371:  37%|3| 49/131.0 [00:16<00:28,  2.89it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.161, load: 3.371:  38%|3| 50/131.0 [00:16<00:27,  2.95it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.257, load: 3.552:  38%|3| 50/131.0 [00:17<00:27,  2.91it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.257, load: 3.552:  39%|3| 51/131.0 [00:17<00:26,  2.96it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.225, load: 3.513:  39%|3| 51/131.0 [00:17<00:27,  2.92it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.225, load: 3.513:  40%|3| 52/131.0 [00:17<00:26,  2.98it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.739, load: 4.143:  40%|3| 52/131.0 [00:17<00:26,  2.94it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.739, load: 4.143:  40%|4| 53/131.0 [00:17<00:26,  3.00it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 3.323, load: 5.115:  40%|4| 53/131.0 [00:17<00:26,  2.96it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 3.323, load: 5.115:  41%|4| 54/131.0 [00:17<00:25,  3.02it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.656, load: 4.149:  41%|4| 54/131.0 [00:18<00:25,  2.98it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.656, load: 4.149:  42%|4| 55/131.0 [00:18<00:25,  3.03it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.467, load: 3.925:  42%|4| 55/131.0 [00:18<00:25,  2.99it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.467, load: 3.925:  43%|4| 56/131.0 [00:18<00:24,  3.05it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 1.729, load: 2.739:  43%|4| 56/131.0 [00:18<00:24,  3.01it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 1.729, load: 2.739:  44%|4| 57/131.0 [00:18<00:24,  3.06it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.901, load: 4.506:  44%|4| 57/131.0 [00:18<00:24,  3.02it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 2.901, load: 4.506:  44%|4| 58/131.0 [00:18<00:23,  3.08it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 12.072, load: 18.709:  44%|4| 58/131.0 [00:19<00:24,  3.04it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 12.072, load: 18.709:  45%|4| 59/131.0 [00:19<00:23,  3.09it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 21.334, load: 35.466:  45%|4| 59/131.0 [00:19<00:23,  3.05it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 21.334, load: 35.466:  46%|4| 60/131.0 [00:19<00:22,  3.10it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 40.235, load: 66.248:  46%|4| 60/131.0 [00:19<00:23,  3.07it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 40.235, load: 66.248:  47%|4| 61/131.0 [00:19<00:22,  3.12it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 34.874, load: 60.388:  47%|4| 61/131.0 [00:19<00:22,  3.08it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 34.874, load: 60.388:  47%|4| 62/131.0 [00:19<00:22,  3.13it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 28.399, load: 44.512:  47%|4| 62/131.0 [00:20<00:22,  3.09it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 28.399, load: 44.512:  48%|4| 63/131.0 [00:20<00:21,  3.14it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 9.552, load: 14.746:  48%|4| 63/131.0 [00:20<00:21,  3.11it/s] [A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 9.552, load: 14.746:  49%|4| 64/131.0 [00:20<00:21,  3.16it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 11.238, load: 17.552:  49%|4| 64/131.0 [00:20<00:21,  3.12it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 11.238, load: 17.552:  50%|4| 65/131.0 [00:20<00:20,  3.17it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 9.008, load: 14.241:  50%|4| 65/131.0 [00:20<00:21,  3.13it/s] [A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 9.008, load: 14.241:  50%|5| 66/131.0 [00:20<00:20,  3.18it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 9.141, load: 14.681:  50%|5| 66/131.0 [00:20<00:20,  3.14it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 9.141, load: 14.681:  51%|5| 67/131.0 [00:20<00:20,  3.19it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 6.949, load: 11.480:  51%|5| 67/131.0 [00:21<00:20,  3.16it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 6.949, load: 11.480:  52%|5| 68/131.0 [00:21<00:19,  3.20it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 4.552, load: 7.194:  52%|5| 68/131.0 [00:21<00:19,  3.17it/s] [A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 4.552, load: 7.194:  53%|5| 69/131.0 [00:21<00:19,  3.22it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 20.299, load: 32.216:  53%|5| 69/131.0 [00:21<00:19,  3.18it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 20.299, load: 32.216:  53%|5| 70/131.0 [00:21<00:18,  3.23it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 4.559, load: 7.399:  53%|5| 70/131.0 [00:21<00:19,  3.19it/s]  [A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 4.559, load: 7.399:  54%|5| 71/131.0 [00:21<00:18,  3.24it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 4.940, load: 8.038:  54%|5| 71/131.0 [00:22<00:18,  3.20it/s][A
+Validating Epoch 0 ['MultiScale-L1', 'EPE']: 4.940, load: 8.038:  55%|5| 72/131.0 [00:22<00:18,  3.25it/s][AProcess Process-4:
+Traceback (most recent call last):
+  File "/usr/lib/python2.7/multiprocessing/process.py", line 258, in _bootstrap
+Process Process-1:
+Traceback (most recent call last):
+  File "/usr/lib/python2.7/multiprocessing/process.py", line 258, in _bootstrap
+Process Process-2:
+Traceback (most recent call last):
+    self.run()
+  File "/usr/lib/python2.7/multiprocessing/process.py", line 114, in run
+  File "/usr/lib/python2.7/multiprocessing/process.py", line 258, in _bootstrap
+    self._target(*self._args, **self._kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/torch/utils/data/dataloader.py", line 34, in _worker_loop
+    self.run()
+  File "/usr/lib/python2.7/multiprocessing/process.py", line 114, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/torch/utils/data/dataloader.py", line 34, in _worker_loop
+    r = index_queue.get()
+  File "/usr/lib/python2.7/multiprocessing/queues.py", line 376, in get
+    self.run()
+  File "/usr/lib/python2.7/multiprocessing/process.py", line 114, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/torch/utils/data/dataloader.py", line 34, in _worker_loop
+    racquire()
+    r = index_queue.get()
+  File "/usr/lib/python2.7/multiprocessing/queues.py", line 376, in get
+KeyboardInterrupt
+    r = index_queue.get()
+  File "/usr/lib/python2.7/multiprocessing/queues.py", line 378, in get
+    racquire()
+KeyboardInterrupt
+    return recv()
+  File "/usr/local/lib/python2.7/dist-packages/torch/multiprocessing/queue.py", line 21, in recv
+    buf = self.recv_bytes()
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "main.py", line 400, in <module>
+    validation_loss, _ = train(args=args, epoch=epoch - 1, start_iteration=global_iteration, data_loader=validation_loader, model=model_and_loss, optimizer=optimizer, logger=validation_logger, is_validate=True, offset=offset)
+  File "main.py", line 261, in train
+    losses = model(data[0], target[0])
+  File "/usr/local/lib/python2.7/dist-packages/torch/nn/modules/module.py", line 224, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/torch/nn/parallel/data_parallel.py", line 60, in forward
+    outputs = self.parallel_apply(replicas, inputs, kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/torch/nn/parallel/data_parallel.py", line 70, in parallel_apply
+    return parallel_apply(replicas, inputs, kwargs, self.device_ids[:len(replicas)])
+  File "/usr/local/lib/python2.7/dist-packages/torch/nn/parallel/parallel_apply.py", line 59, in parallel_apply
+    thread.join()
+  File "/usr/lib/python2.7/threading.py", line 940, in join
+    self.__block.wait()
+  File "/usr/lib/python2.7/threading.py", line 340, in wait
+    waiter.acquire()
+KeyboardInterrupt
