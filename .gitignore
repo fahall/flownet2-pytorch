@@ -7,3 +7,5 @@ work/*
 _ext/
 scratch
 scratch/*
+run_status.json
+log.txt
