@@ -26,13 +26,13 @@ class FlowNet2(nn.Module):
 
         # First Block (FlowNetC)
         self.flownetc = FlowNetC(with_bn=with_bn, fp16=fp16)
-        self.upsample1 = nn.Upsample(scale_factor=4, mode='bilinear')
+        self.upsample1 = nn.Upsample(scale_factor=4, mode='bilinear', align_corners=True)
         self.resample1 = (nn.Sequential(tofp32(), Resample2d(), tofp16())
                           if fp16 else Resample2d())
 
         # Block (FlowNetS1)
         self.flownets_1 = FlowNetS(with_bn=with_bn)
-        self.upsample2 = nn.Upsample(scale_factor=4, mode='bilinear')
+        self.upsample2 = nn.Upsample(scale_factor=4, mode='bilinear', align_corners=True)
         self.resample2 = (nn.Sequential(tofp32(), Resample2d(), tofp16())
                           if fp16 else Resample2d())
 
@@ -228,14 +228,14 @@ class FlowNet2CS(nn.Module):
 
         # First Block (FlowNetC)
         self.flownetc = FlowNetC(with_bn=with_bn, fp16=fp16)
-        self.upsample1 = nn.Upsample(scale_factor=4, mode='bilinear')
+        self.upsample1 = nn.Upsample(scale_factor=4, mode='bilinear', align_corners=True)
 
         self.resample1 = (nn.Sequential(tofp32(), Resample2d(), tofp16())
                           if fp16 else Resample2d())
 
         # Block (FlowNetS1)
         self.flownets_1 = FlowNetS(with_bn=with_bn)
-        self.upsample2 = nn.Upsample(scale_factor=4, mode='bilinear')
+        self.upsample2 = nn.Upsample(scale_factor=4, mode='bilinear', align_corners=True)
 
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
@@ -291,7 +291,7 @@ class FlowNet2CSS(nn.Module):
 
         # First Block (FlowNetC)
         self.flownetc = FlowNetC(with_bn=with_bn, fp16=fp16)
-        self.upsample1 = nn.Upsample(scale_factor=4, mode='bilinear')
+        self.upsample1 = nn.Upsample(scale_factor=4, mode='bilinear', align_corners=True)
 
         if fp16:
             self.resample1 = nn.Sequential(tofp32(), Resample2d(), tofp16())
@@ -300,7 +300,7 @@ class FlowNet2CSS(nn.Module):
 
         # Block (FlowNetS1)
         self.flownets_1 = FlowNetS(with_bn=with_bn)
-        self.upsample2 = nn.Upsample(scale_factor=4, mode='bilinear')
+        self.upsample2 = nn.Upsample(scale_factor=4, mode='bilinear', align_corners=True)
         if fp16:
             self.resample2 = nn.Sequential(tofp32(), Resample2d(), tofp16())
         else:
