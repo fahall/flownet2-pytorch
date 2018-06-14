@@ -13,7 +13,7 @@ MODEL_HOME = osp.join(DATA_DIR, 'flownet_models')
 MODEL_PATH = osp.join(MODEL_HOME,'FlowNet2_checkpoint.pth.tar')
 VIDEO_PATTERN = osp.join(DATA_DIR, 'videos/*.mp4')
 NETWORK_IMAGE_DIMS = (384, 512)
-
+SCRATCH = 'scratch'
 
 def get_frame(vidcap, framenum):
     vidcap.set(cv2.CAP_PROP_POS_FRAMES, framenum)
@@ -29,7 +29,7 @@ def get_video_flow(videofile, step=6):
     cap = cv2.VideoCapture(videofile)
     ims = [get_frame(cap, i*step) for i in range(2)]
     flows = get_flows(ims)
-    store_flows(flows, ['test.ppm'])
+    store_flows(flows, [osp.join(SCRATCH, 'test.ppm')])
     
 
 def get_flows(images, network=None):
@@ -70,6 +70,6 @@ def get_network():
     return network
         
 if __name__ == '__main__':
-    filepaths = glob(VIDEO_PATTERN)
+    filepaths = globg(VIDEO_PATTERN)
     test = filepaths[0]
     get_video_flow(test)
