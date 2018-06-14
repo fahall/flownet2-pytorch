@@ -70,6 +70,6 @@ def get_network():
     return network
         
 if __name__ == '__main__':
-    filepaths = globg(VIDEO_PATTERN)
+    filepaths = glob(VIDEO_PATTERN)
     test = filepaths[0]
     get_video_flow(test)
