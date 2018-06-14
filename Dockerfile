@@ -9,7 +9,7 @@ RUN apt install -y ffmpeg
 
 RUN add-apt-repository ppa:deadsnakes/ppa
 RUN apt update 
-RUN apt install -y python3.6 python3.6-dev python3-tk
+RUN apt install -y python3.6 python3.6-dev python3.6-tk
 RUN wget https://bootstrap.pypa.io/get-pip.py
 RUN python3.6 get-pip.py
 
