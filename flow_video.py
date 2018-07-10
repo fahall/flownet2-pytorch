@@ -1,26 +1,29 @@
-import cv2
-from glob import glob
-import os.path as osp
-import numpy as np
-import torch
-from torch.autograd import Variable
-from FlowNet2_src import FlowNet2
-from FlowNet2_src import flow_to_image
-from os import makedirs
-import logging
-import sys
 import json
+import logging
+import os.path as osp
+import sys
+from glob import glob
+from os import makedirs
+
+import numpy as np
+
+import cv2
+import torch
+from FlowNet2_src import FlowNet2, flow_to_image
+from torch.autograd import Variable
+
 DATA_DIR = '/data/'
 OUT_DIR = osp.join(DATA_DIR, 'flows')
 MODEL_HOME = osp.join(DATA_DIR, 'flownet_models')
-MODEL_PATH = osp.join(MODEL_HOME,'FlowNet2_checkpoint.pth.tar')
+MODEL_PATH = osp.join(MODEL_HOME, 'FlowNet2_checkpoint.pth.tar')
 VIDEO_PATTERN = osp.join(DATA_DIR, 'videos/*.mp4')
 NETWORK_IMAGE_DIMS = (384, 512)
 SCRATCH = 'scratch'
-GPU=0
+GPU = 0
 SCALE = 0.25
 BATCH_SIZE = 15
 STATUS_FILE = 'run_status.json'
+
 
 def setup_custom_logger(name):
     formatter = logging.Formatter(fmt='%(asctime)s %(levelname)-8s %(message)s',
@@ -35,13 +38,15 @@ def setup_custom_logger(name):
     logger.addHandler(screen_handler)
     return logger
 
+
 logger = setup_custom_logger(__name__)
+
 
 def get_frame(vidcap, framenum):
     vidcap.set(cv2.CAP_PROP_POS_FRAMES, framenum)
     result, cv2_im = vidcap.read()
     if result:
-        cv2_im = cv2.cvtColor(cv2_im,cv2.COLOR_BGR2RGB)
+        cv2_im = cv2.cvtColor(cv2_im, cv2.COLOR_BGR2RGB)
         cv2_im = cv2.resize(cv2_im, NETWORK_IMAGE_DIMS)
         return cv2_im
     else:
@@ -74,16 +79,17 @@ def get_video_flow(videofile, step=6):
 
     return num_processed
 
-    
 
 def get_output_conversion_func(videofile):
     title = osp.splitext(osp.basename(videofile))[0]
     subdir = osp.join(OUT_DIR, title)
     if not osp.exists(subdir):
         makedirs(subdir)
-    fpath = lambda i: osp.join(subdir, str(i).zfill(6) + '.jpg')
+
+    def fpath(i): return osp.join(subdir, str(i).zfill(6) + '.jpg')
     return fpath
-    
+
+
 def get_flows(images, network=None):
     ims = prep_ims_for_torch(images)
     if network is None:
@@ -91,19 +97,24 @@ def get_flows(images, network=None):
     pred_flows = network(ims).cpu().data
     return pred_flows
 
+
 def store_flows(flows, filenames):
     assert len(flows) == len(filenames)
     for i in range(len(flows)):
         store_single_flow(flows[i], filenames[i])
 
+
 def store_single_flow(flow, path):
     args = [int(cv2.IMWRITE_JPEG_QUALITY), 100]
-    im = cv2.cvtColor(cv2.resize(flow_to_im(flow), (0,0), fx=SCALE, fy=SCALE), cv2.COLOR_RGB2BGR)
-    
+    im = cv2.cvtColor(cv2.resize(flow_to_im(flow), (0, 0),
+                                 fx=SCALE, fy=SCALE), cv2.COLOR_RGB2BGR)
+
     cv2.imwrite(path, im, args)
 
+
 def flow_to_im(flow):
-    return flow_to_image(flow.numpy().transpose((1,2,0)))
+    return flow_to_image(flow.numpy().transpose((1, 2, 0)))
+
 
 def prep_ims_for_torch(images):
     ims = np.array([[images[i], images[i+1]] for i in range(len(images)-1)])
@@ -112,33 +123,36 @@ def prep_ims_for_torch(images):
     ims_v = Variable(ims.cuda(GPU), requires_grad=False)
     return ims_v
 
+
 def get_network():
     network = FlowNet2()
     model_path = MODEL_PATH
     pretrained_dict = torch.load(model_path)['state_dict']
     model_dict = network.state_dict()
-    pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_dict}
+    pretrained_dict = {k: v for k,
+                       v in pretrained_dict.items() if k in model_dict}
     model_dict.update(pretrained_dict)
     network.load_state_dict(model_dict)
     network.cuda(GPU)
     return network
 
+
 def store_status(d):
     with open(STATUS_FILE, 'w') as f:
         json.dump(d, f)
+
 
 def load_status():
     if not osp.exists(STATUS_FILE):
         return {}
     with open(STATUS_FILE, 'w') as f:
         return json.load(f)
-        
+
+
 if __name__ == '__main__':
     filepaths = glob(VIDEO_PATTERN)
-    finished =load_status()
+    finished = load_status()
     filepaths = [fp for fp in filepaths if fp not in finished.keys()]
-    for f in filepaths:
+    for f in tqdm(filepaths):
         finished[f] = get_video_flow(f)
         store_status(finished)
-
-

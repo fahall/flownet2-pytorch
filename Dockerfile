@@ -5,11 +5,11 @@ RUN apt-get install -y build-essential libpq-dev libssl-dev openssl libffi-dev z
 RUN apt-get install -y wget software-properties-common
 
 RUN add-apt-repository -y ppa:jonathonf/ffmpeg-3
-RUN apt install -y ffmpeg
+RUN apt-get install -y ffmpeg
 
 RUN add-apt-repository ppa:deadsnakes/ppa
-RUN apt update 
-RUN apt install -y python3.6 python3.6-dev python3.6-tk
+RUN apt-get update 
+RUN apt-get install -y python3.6 python3.6-dev python3.6-tk
 RUN wget https://bootstrap.pypa.io/get-pip.py
 RUN python3.6 get-pip.py
 
