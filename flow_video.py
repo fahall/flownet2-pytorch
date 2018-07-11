@@ -11,6 +11,7 @@ import cv2
 import torch
 from FlowNet2_src import FlowNet2, flow_to_image
 from torch.autograd import Variable
+from tqdm import tqdm
 
 DATA_DIR = '/data/'
 OUT_DIR = osp.join(DATA_DIR, 'flows')
@@ -22,7 +23,9 @@ SCRATCH = 'scratch'
 GPU = 0
 SCALE = 0.25
 BATCH_SIZE = 15
-STATUS_FILE = 'run_status.json'
+STATUS_FILE = osp.join(DATA_DIR, 'flownet_status.json')
+
+DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 
 def setup_custom_logger(name):
@@ -80,13 +83,18 @@ def get_video_flow(videofile, step=6):
     return num_processed
 
 
-def get_output_conversion_func(videofile):
+def get_subdir(videofile):
     title = osp.splitext(osp.basename(videofile))[0]
     subdir = osp.join(OUT_DIR, title)
     if not osp.exists(subdir):
         makedirs(subdir)
+    return subdir
 
-    def fpath(i): return osp.join(subdir, str(i).zfill(6) + '.jpg')
+
+def get_output_conversion_func(videofile):
+
+    def fpath(i): return osp.join(get_subdir(
+        videofile), str(i).zfill(6) + '.jpg')
     return fpath
 
 
@@ -120,7 +128,7 @@ def prep_ims_for_torch(images):
     ims = np.array([[images[i], images[i+1]] for i in range(len(images)-1)])
     ims = ims.transpose((0, 4, 1, 2, 3)).astype(np.float32)
     ims = torch.from_numpy(ims)
-    ims_v = Variable(ims.cuda(GPU), requires_grad=False)
+    ims_v = Variable(ims.to(DEVICE), requires_grad=False)
     return ims_v
 
 
@@ -133,8 +141,13 @@ def get_network():
                        v in pretrained_dict.items() if k in model_dict}
     model_dict.update(pretrained_dict)
     network.load_state_dict(model_dict)
-    network.cuda(GPU)
-    return network
+
+    if torch.cuda.device_count() > 1:
+        print("Let's use", torch.cuda.device_count(), "GPUs!")
+        # dim = 0 [30, xxx] -> [10, ...], [10, ...], [10, ...] on 3 GPUs
+        network = nn.DataParallel(network)
+
+    return network.to(DEVICE)
 
 
 def store_status(d):
@@ -143,16 +156,24 @@ def store_status(d):
 
 
 def load_status():
-    if not osp.exists(STATUS_FILE):
+    try:
+        with open(STATUS_FILE, 'w') as f:
+            return json.load(f)
+    except:
         return {}
-    with open(STATUS_FILE, 'w') as f:
-        return json.load(f)
+
+
+def needs_flows(filepath, finished):
+    in_finished = filepath in finished.keys()
+    has_directory = osp.exists(get_subdir(filepath))
+    return (not in_finished) and (not has_directory)
 
 
 if __name__ == '__main__':
     filepaths = glob(VIDEO_PATTERN)
     finished = load_status()
-    filepaths = [fp for fp in filepaths if fp not in finished.keys()]
+    prob_finished = {}
+    filepaths = [fp for fp in filepaths if needs_flows(fp, finished)]
     for f in tqdm(filepaths):
         finished[f] = get_video_flow(f)
         store_status(finished)
