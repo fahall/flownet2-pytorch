@@ -9,6 +9,7 @@ import numpy as np
 
 import cv2
 import torch
+import torch.nn as nn
 from FlowNet2_src import FlowNet2, flow_to_image
 from torch.autograd import Variable
 from tqdm import tqdm
@@ -22,7 +23,7 @@ NETWORK_IMAGE_DIMS = (384, 512)
 SCRATCH = 'scratch'
 GPU = 0
 SCALE = 0.25
-BATCH_SIZE = 15
+BATCH_SIZE = 60
 STATUS_FILE = osp.join(DATA_DIR, 'flownet_status.json')
 
 DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -62,6 +63,7 @@ def get_video_flow(videofile, step=6):
     found_end = False
     strt = 0
     num_processed = 0
+    network = get_network()
     while not found_end:
         frame_nums = range(strt, strt+BATCH_SIZE)
         ims = [get_frame(cap, i*step) for i in frame_nums]
@@ -72,11 +74,12 @@ def get_video_flow(videofile, step=6):
             logger.info('Cleaning up for final run.')
             ims = [i for i in ims if i is not None]
             found_end = True
-        num_processed += len(ims)
-        flows = get_flows(ims)
-        filepaths = [fpath((i+1)*step + strt) for i in range(len(flows))]
-        store_flows(flows, filepaths)
-        strt += BATCH_SIZE
+        if len(ims) > 1:
+            num_processed += len(ims)
+            flows = get_flows(ims, network=network)
+            filepaths = [fpath((i+1)*step + strt) for i in range(len(flows))]
+            store_flows(flows, filepaths)
+            strt += BATCH_SIZE
         if num_processed % 100 == 0:
             logger.info('Finished: ' + str(num_processed))
 
@@ -84,11 +87,23 @@ def get_video_flow(videofile, step=6):
 
 
 def get_subdir(videofile):
-    title = osp.splitext(osp.basename(videofile))[0]
-    subdir = osp.join(OUT_DIR, title)
+    subdir = videofile_to_subdir(videofile)
     if not osp.exists(subdir):
         makedirs(subdir)
     return subdir
+
+
+def videofile_to_subdir(videofile):
+    title = osp.splitext(osp.basename(videofile))[0]
+    subdir = osp.join(OUT_DIR, title)
+    return subdir
+
+
+def subdir_to_videofile(subdir):
+    title = osp.splitext(osp.basename(subdir))[0]
+    vid = osp.join(DATA_DIR, 'videos', title + '.mp4')
+    assert osp.exists(vid)
+    return vid
 
 
 def get_output_conversion_func(videofile):
@@ -157,7 +172,7 @@ def store_status(d):
 
 def load_status():
     try:
-        with open(STATUS_FILE, 'w') as f:
+        with open(STATUS_FILE, 'r') as f:
             return json.load(f)
     except:
         return {}
@@ -165,14 +180,23 @@ def load_status():
 
 def needs_flows(filepath, finished):
     in_finished = filepath in finished.keys()
-    has_directory = osp.exists(get_subdir(filepath))
+    has_directory = osp.exists(videofile_to_subdir(filepath))
+
     return (not in_finished) and (not has_directory)
+
+
+def update_finished(finished):
+    dirs = glob(osp.join(OUT_DIR, '*'))
+    news = {subdir_to_videofile(d): len(glob(osp.join(d, '*.json')))
+            for d in dirs}
+    finished.update(news)
+    return finished
 
 
 if __name__ == '__main__':
     filepaths = glob(VIDEO_PATTERN)
     finished = load_status()
-    prob_finished = {}
+    finished = update_finished(finished)
     filepaths = [fp for fp in filepaths if needs_flows(fp, finished)]
     for f in tqdm(filepaths):
         finished[f] = get_video_flow(f)
